@@ -1,20 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck disable=SC2086
+# display information about subdomains
 
-get_dns_info() {
-  local domain="$1"
-  local subdomain="$2"
-
-  if [[ -z "$subdomain" ]]; then
-    subdomains=("www" "lb-01" "web-01" "web-02")
-  else
-    subdomains=("$subdomain")
-  fi
-
-  for sub in "${subdomains[@]}"; do
-    record_type=$(dig "$sub.$domain" | awk '/^;; ANSWER SECTION:/{getline; print $4}')
-    destination=$(dig "$sub.$domain" | awk '/^;; ANSWER SECTION:/{getline; getline; print $5}')
-    echo "The subdomain $sub is a $record_type record and points to $destination"
-  done
+display_info ()
+{
+    domain="$1"
+    subdomain="$2"
+    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
 }
 
-get_dns_info "$1" "$2"
+for subdomain in "www" "lb-01" "web-01" "web-02"
+do
+    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
+    then
+	display_info "$1" "$subdomain"
+    fi
+done
