@@ -13,6 +13,15 @@
 
      - you're done with 0% of tasks.
 -   An auto review will be launched at the deadline
+
+#### In a nutshell...
+
+-   **Auto QA review:** 0.0/15 mandatory & 0.0/9 optional
+-   **Altogether:**  **0.0%**
+    -   Mandatory: 0.0%
+    -   Optional: 0.0%
+    -   Calculation:  0.0% + (0.0% * 0.0%)  == **0.0%**
+
 Concepts
 --------
 
